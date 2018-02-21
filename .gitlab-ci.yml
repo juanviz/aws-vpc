@@ -1,0 +1,8 @@
+build:
+  image: registry.gitlab.com/orangex/infrastructure/ansible-image:latest
+  before_script:
+    - mkdir -p roles/vpc-ansible
+    - rsync -ar --exclude=.git --exclude=roles . roles/vpc-ansible
+  script:
+    - ansible-playbook test.yml -e "remote_cidr=62.14.197.105/32 aws_env=dev01 vpc_status=delete"
+
